@@ -25,13 +25,14 @@ class TestGrafo(unittest.TestCase):
         self.g_p.adiciona_aresta('a9', 'T', 'Z')
 
         # Clone do Grafo da Paraíba para ver se o método equals está funcionando
-        self.g_p2 = MeuGrafo([Vertice('J'),
-                             Vertice('C'),
-                             Vertice('E'),
-                             Vertice('P'),
-                             Vertice('M'),
-                             Vertice('T'),
-                             Vertice('Z')])
+        self.g_p2 = MeuGrafo()
+        self.g_p2.adiciona_vertice("J")
+        self.g_p2.adiciona_vertice("C")
+        self.g_p2.adiciona_vertice("E")
+        self.g_p2.adiciona_vertice("P")
+        self.g_p2.adiciona_vertice("M")
+        self.g_p2.adiciona_vertice("T")
+        self.g_p2.adiciona_vertice("Z")
         self.g_p2.adiciona_aresta('a1', 'J', 'C')
         self.g_p2.adiciona_aresta('a2', 'C', 'E')
         self.g_p2.adiciona_aresta('a3', 'C', 'E')
@@ -220,6 +221,59 @@ class TestGrafo(unittest.TestCase):
         self.g_dijkstra.adiciona_aresta('3', 'B', 'D', 1)
         self.g_dijkstra.adiciona_aresta('2', 'C', 'D', 2)
 
+        # DIJKSTRA
+        self.g_dijkstra1 = MeuGrafo()
+        self.g_dijkstra1.adiciona_vertice("A")
+        self.g_dijkstra1.adiciona_vertice("B")
+        self.g_dijkstra1.adiciona_vertice("C")
+        self.g_dijkstra1.adiciona_vertice("D")
+        self.g_dijkstra1.adiciona_vertice("E")
+        self.g_dijkstra1.adiciona_vertice("F")
+        self.g_dijkstra1.adiciona_aresta('a1', 'A', 'B', 2)
+        self.g_dijkstra1.adiciona_aresta('a2', 'A', 'C', 1)
+        self.g_dijkstra1.adiciona_aresta('a3', 'C', 'D', 3)
+        self.g_dijkstra1.adiciona_aresta('a4', 'B', 'D', 1)
+        self.g_dijkstra1.adiciona_aresta('a5', 'C', 'F', 15)
+        self.g_dijkstra1.adiciona_aresta('a6', 'D', 'E', 2)
+        self.g_dijkstra1.adiciona_aresta('a7', 'E', 'F', 3)
+
+        self.g_dijkstra2 = MeuGrafo()
+        self.g_dijkstra2.adiciona_vertice('A')
+        self.g_dijkstra2.adiciona_vertice('B')
+        self.g_dijkstra2.adiciona_vertice('C')
+        self.g_dijkstra2.adiciona_vertice('D')
+        self.g_dijkstra2.adiciona_vertice('E')
+        self.g_dijkstra2.adiciona_vertice('F')
+        self.g_dijkstra2.adiciona_aresta('a1', 'A', 'B', 4)
+        self.g_dijkstra2.adiciona_aresta('a3', 'A', 'C', 3)
+        self.g_dijkstra2.adiciona_aresta('a2', 'B', 'C', 2)
+        self.g_dijkstra2.adiciona_aresta('a4', 'C', 'D', 4)
+        self.g_dijkstra2.adiciona_aresta('a5', 'D', 'E', 1)
+        self.g_dijkstra2.adiciona_aresta('a6', 'B', 'E', 9)
+        self.g_dijkstra2.adiciona_aresta('a7', 'E', 'F', 2)
+
+        self.g_dijkstra3 = MeuGrafo()
+        self.g_dijkstra3.adiciona_vertice('A')
+        self.g_dijkstra3.adiciona_vertice('B')
+        self.g_dijkstra3.adiciona_vertice('C')
+        self.g_dijkstra3.adiciona_vertice('D')
+        self.g_dijkstra3.adiciona_aresta('a1', 'A', 'B', 7)
+        self.g_dijkstra3.adiciona_aresta('a2', 'A', 'C', 2)
+        self.g_dijkstra3.adiciona_aresta('a3', 'B', 'D', 1)
+        self.g_dijkstra3.adiciona_aresta('a4', 'C', 'D', 6)
+        self.g_dijkstra3.adiciona_aresta('a5', 'A', 'D', 9)
+        self.g_dijkstra3.adiciona_aresta('a6', 'C', 'B', 3)
+
+        self.g_dijkstra4 = MeuGrafo()
+        self.g_dijkstra4.adiciona_vertice("A")
+        self.g_dijkstra4.adiciona_vertice("B")
+        self.g_dijkstra4.adiciona_vertice("C")
+        self.g_dijkstra4.adiciona_vertice("D")
+        self.g_dijkstra4.adiciona_aresta('a1', 'A', 'B', 1)
+        self.g_dijkstra4.adiciona_aresta('a2', 'A', 'C', 3)
+        self.g_dijkstra4.adiciona_aresta('a3', 'B', 'D', 1)
+        self.g_dijkstra4.adiciona_aresta('a2', 'C', 'D', 2)
+
     def constroi_matriz(self, g: MeuGrafo):
         ordem = len(g._vertices)
         m = list()
@@ -351,6 +405,32 @@ class TestGrafo(unittest.TestCase):
     def test_warshall(self):
         self.assertEqual(self.g_p.warshall(), self.g_p_m)
         self.assertEqual(self.g_e.warshall(), self.g_e_m)
+        self.assertEqual(self.g_p.warshall(), [[0, 1, 1, 0, 0, 0, 0],
+                                               [0, 0, 1, 0, 0, 0, 0],
+                                               [0, 0, 0, 0, 0, 0, 0],
+                                               [0, 1, 1, 0, 0, 0, 0],
+                                               [0, 1, 1, 0, 0, 1, 1],
+                                               [0, 1, 1, 0, 0, 0, 1],
+                                               [0, 0, 0, 0, 0, 0, 0]])
+
+        self.assertEqual(self.g_c.warshall(), [[0, 1, 1, 1],
+                                               [0, 0, 0, 0],
+                                               [0, 1, 0, 0],
+                                               [0, 1, 1, 0]])
+
+        self.assertEqual(self.g_c3.warshall(), [[0]])
+        self.assertEqual(self.g_c2.warshall(), [[0, 1],
+                                                [0, 0]])
+        self.assertEqual(self.g_l1.warshall(), [[1, 1, 0, 0],
+                                                [0, 0, 0, 0],
+                                                [0, 0, 0, 0],
+                                                [0, 0, 0, 0]])
 
     def test_dijkstra(self):
-        pass
+        self.assertEqual(self.g_dijkstra1.dijkstra_drone('A', 'F'), ['F', 'E', 'D', 'B', 'A'])
+        self.assertEqual(self.g_dijkstra2.dijkstra_drone('A', 'F'), ['F', 'E', 'D', 'C', 'A'])
+        self.assertEqual(self.g_dijkstra3.dijkstra_drone('A', 'D'), ['D', 'B', 'C', 'A'])
+        self.assertEqual(self.g_dijkstra4.dijkstra_drone('A', 'D'), ['D', 'B', 'A'])
+
+
+
